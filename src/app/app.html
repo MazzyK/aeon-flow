@@ -1,0 +1,191 @@
+<div class="app-shell">
+  <header class="header">
+  <div class="title-row">
+    <img
+      src="assets/logo.png"
+      alt="aeon Flow logo"
+      class="logo"
+    />
+    <h1 class="gradient-title">{{ title() }}</h1>
+    
+    <span class="divider" aria-hidden="true"></span>
+    <span class="subtitle inline">Shaping time.</span>
+    
+  </div>
+</header>
+
+
+  <main class="page">
+    <section class="card">
+      <div class="card-head">
+        <h2>Tasks</h2>
+        <div class="meta">
+          Remaining: <b>{{ store.remainingCount() }}</b> /
+          Total: <b>{{ store.tasks().length }}</b>
+        </div>
+      </div>
+
+      <div class="summary">
+        <div class="summary-main">
+          <div class="kpi">
+            <span class="kpi-label">Total</span>
+            <b class="kpi-value">{{ store.totalCount() }}</b>
+          </div>
+
+          <div class="kpi">
+            <span class="kpi-label">Remaining</span>
+            <b class="kpi-value">{{ store.remainingCount() }}</b>
+          </div>
+
+          <div class="kpi">
+            <span class="kpi-label">Completed</span>
+            <b class="kpi-value">{{ store.completedCount() }}</b>
+          </div>
+        </div>
+
+        <div class="summary-splits">
+            <div class="split">
+              <span class="split-title">Priority</span>
+              <div class="split-chips">
+                  <span class="chip chip-low"><strong>Low:</strong> {{ store.remainingByPriority().Low }}</span>
+                  <span class="chip chip-medium"><strong>Medium:</strong> {{ store.remainingByPriority().Medium }}</span>
+                  <span class="chip chip-high"><strong>High:</strong> {{ store.remainingByPriority().High }}</span>
+              </div>
+            </div>
+            <div class="split">
+              <span class="split-title">Effort</span>
+              <div class="split-chips">
+                <span class="chip chip-low"><strong>Low:</strong> {{ store.remainingByEffort().Low }}</span>
+                <span class="chip chip-medium"><strong>Medium:</strong> {{ store.remainingByEffort().Medium }}</span>
+                <span class="chip chip-high"><strong>High:</strong> {{ store.remainingByEffort().High }}</span>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <form class="task-form" [formGroup]="form" (ngSubmit)="addTask()">
+        <div class="row">
+          <input
+            #titleInput
+            class="input"
+            type="text"
+            placeholder="Add a task…"
+            formControlName="title"
+            (keydown.control.enter)="addTask()"
+          />
+          <button class="btn primary" type="submit">Add</button>
+        </div>
+
+        @if (form.controls.title.touched && form.controls.title.invalid) {
+          <p class="error">
+            @if (form.controls.title.errors?.['required']) { Title is required. }
+            @if (form.controls.title.errors?.['maxlength']) { Keep it under 60 characters. }
+          </p>
+        }
+
+        <div class="row row-3">
+          <label class="field">
+            <span>Priority</span>
+            <select class="select" formControlName="priority">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Effort</span>
+            <select class="select" formControlName="effort">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </label>
+        </div>
+      </form>
+
+      @if (store.visibleTasks().length === 0) {
+        <p class="empty">No tasks to show.</p>
+      }
+
+      <ul class="list">
+        @for (t of store.visibleTasks(); track t.id) {
+          <li class="list-item">
+            <label class="task">
+              <input type="checkbox" [checked]="t.done" (change)="store.toggleDone(t.id)" />
+
+              <div class="title-area">
+                @if (store.editingId() === t.id) {
+                  <input
+                    class="title-input"
+                    [value]="store.editingTitle()"
+                    (input)="store.editingTitle.set(($any($event.target)).value)"
+                    (keydown.enter)="store.commitEdit()"
+                    (keydown.escape)="store.cancelEdit()"
+                    (blur)="store.commitEdit()"
+                  />
+                } @else {
+                  <span
+                    class="task-title"
+                    [class.done]="t.done"
+                    (dblclick)="store.startEdit(t.id)"
+                    title="Double-click to edit"
+                  >
+                    {{ t.title }}
+                  </span>
+                }
+              </div>
+            </label>
+
+            <div class="meta-group">
+              <span
+                class="meta-pill"
+                [class.level-low]="t.priority === 'Low'"
+                [class.level-medium]="t.priority === 'Medium'"
+                [class.level-high]="t.priority === 'High'"
+              >
+                <strong>Priority:</strong> {{ t.priority }}
+              </span>
+
+              <span
+                class="meta-pill"
+                [class.level-low]="t.effort === 'Low'"
+                [class.level-medium]="t.effort === 'Medium'"
+                [class.level-high]="t.effort === 'High'"
+              >
+                <strong>Effort:</strong> {{ t.effort }}
+              </span>
+            </div>
+
+            <button class="icon-btn" type="button" (click)="store.delete(t.id)">✕</button>
+          </li>
+        }
+      </ul>
+
+      @if (store.hasCompleted()) {
+        <div class="footer-actions">
+          <button class="btn" type="button" (click)="store.clearCompleted()">
+            Clear completed
+          </button>
+        </div>
+      }
+    </section>
+  </main>
+
+  <footer class="footer">
+  <p>
+    © {{ year }} ·
+    <a
+      href="https://github.com/mazzyk"
+      target="_blank"
+      rel="noopener"
+      class="gradient-link"
+    >
+      Aeon Flow
+    </a>
+    · Built with Angular
+  </p>
+</footer>
+
+
+</div>

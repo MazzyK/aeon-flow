@@ -1,0 +1,465 @@
+/* Layout & theme variables live here so everything inherits them. */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 0 16px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+  /* aeon Flow palette (Angular Colours) */
+  --aeon-light: #ff4d7e;   /* lightest in gradient */
+  --aeon-medium: #a100ff;  /* purple in gradient */
+  --aeon-dark: #dd0031;    /* darkest orange/red in gradient */
+}
+
+.header {
+  display: flex;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo next to title */
+.logo {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  margin-right: -24px; 
+}
+
+.divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.15);
+  margin: 0 6px;
+  transform: translateY(9px);
+}
+
+.subtitle.inline {
+  font-size: 0.95rem;
+  opacity: 0.6;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  transform: translateY(9px);
+}
+
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* Title gradient */
+.gradient-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+  margin:0;
+  transform: translateY(4px);
+
+  display: inline-block;
+  background-image: linear-gradient(90deg, #dd0031 0%, #ff4d7e 40%, #a100ff 100%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-link {
+  font-weight: 600;
+  text-decoration: none;
+
+  background-image: linear-gradient(
+    90deg,
+    var(--aeon-dark) 0%,
+    var(--aeon-light) 40%,
+    var(--aeon-medium) 100%
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-link:hover {
+  opacity: 0.85;
+}
+
+
+/* Header row within the card */
+.card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.meta {
+  opacity: 0.75;
+  font-size: 0.95rem;
+}
+
+/* Summary strip */
+.summary {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  margin: 12px 0 14px;
+  background: rgba(0, 0, 0, 0.015);
+}
+
+.summary-main {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.kpi {
+  display: grid;
+  gap: 2px;
+  min-width: 120px;
+}
+
+.kpi-label {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+.kpi-value {
+  font-size: 1.2rem;
+}
+
+.summary-splits {
+  display: grid;
+  gap: 10px;
+}
+
+/* Label + chips row */
+.split {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.split-title {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+/* Chips grid: 2 cols on mobile, 3 cols on wider */
+.split-chips {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+  align-items: stretch;
+}
+
+@media (min-width: 620px) {
+  .split-chips {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Base chip styling (single source of truth) */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  min-width: 0;
+  width: 100%;
+
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  line-height: 1;
+
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.7);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+}
+
+.chip strong {
+  font-weight: 600;
+  opacity: 0.9;
+  margin-right: 2px;
+}
+
+/* Form */
+.task-form {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.row-3 {
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.input {
+  flex: 1;
+  min-width: 220px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: white;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: white;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.btn.primary {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.btn.primary:hover {
+  background: rgba(0, 0, 0, 0.10);
+}
+
+.error {
+  margin: 0;
+  color: #b00020;
+  font-size: 0.9rem;
+}
+
+.empty {
+  margin: 10px 0;
+  opacity: 0.7;
+}
+
+/* Task list */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.list-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 32px;
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 10px;
+
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+}
+
+/* Left side: checkbox & title */
+.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.title-area {
+  min-width: 0;
+}
+
+.task-title {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-title.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Inline edit input */
+.title-input {
+  width: 100%;
+  min-width: 160px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  font: inherit;
+}
+
+/* Middle: pills */
+.meta-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.02);
+  white-space: nowrap;
+}
+
+.meta-pill strong {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/* Value colors for task pills only */
+.meta-pill.level-low {
+  color: var(--aeon-light);
+  border-color: color-mix(in srgb, var(--aeon-light) 60%, transparent);
+}
+
+.meta-pill.level-medium {
+  color: var(--aeon-medium);
+  border-color: color-mix(in srgb, var(--aeon-medium) 60%, transparent);
+}
+
+.meta-pill.level-high {
+  color: var(--aeon-dark);
+  border-color: color-mix(in srgb, var(--aeon-dark) 60%, transparent);
+}
+
+
+/* Summary chip coloring (separate from task pills) */
+.chip-low {
+  color: var(--aeon-light);
+  border-color: color-mix(in srgb, var(--aeon-light) 60%, transparent);
+  background: color-mix(in srgb, var(--aeon-light) 8%, white);
+}
+
+.chip-medium {
+  color: var(--aeon-medium);
+  border-color: color-mix(in srgb, var(--aeon-medium) 60%, transparent);
+  background: color-mix(in srgb, var(--aeon-medium) 8%, white);
+}
+
+.chip-high {
+  color: var(--aeon-dark);
+  border-color: color-mix(in srgb, var(--aeon-dark) 60%, transparent);
+  background: color-mix(in srgb, var(--aeon-dark) 8%, white);
+}
+
+/* Right side: delete button */
+.icon-btn {
+  justify-self: end;
+  align-self: start;
+
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.icon-btn:hover {
+  opacity: 1;
+}
+
+.footer-actions {
+  margin-top: 12px;
+}
+
+/* Narrow screens: put meta under title (still keeps delete on the right) */
+@media (max-width: 600px) {
+  .list-item {
+    grid-template-columns: 1fr 32px;
+    grid-template-areas:
+      "task del"
+      "meta del";
+    align-items: start;
+  }
+
+  .task {
+    grid-area: task;
+  }
+
+  .meta-group {
+    grid-area: meta;
+    justify-content: flex-start;
+  }
+
+  .icon-btn {
+    grid-area: del;
+  }
+}
+
+/* Footer styling */
+
+.footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  justify-content: center;
+
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+
+
